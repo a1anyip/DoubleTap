@@ -1,0 +1,10 @@
+Package: cc.tweak.doubletap
+Name: DoubleTap
+Depends: mobilesubstrate, firmware (>= 5.0)
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: 
+Maintainer: Alan Yip <alan@tweak.cc>
+Author: Alan Yip <alan@tweak.cc>
+Homepage: http://tweak.cc/
+Section: Tweaks
