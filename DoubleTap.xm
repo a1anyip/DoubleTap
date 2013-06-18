@@ -12,7 +12,7 @@
 #import "objc/objc.h"
 #import "objc/runtime.h"
 
-#define PREF_PATH									@"/var/mobile/Library/Preferences/cc.tweak.doubletap.plist"
+#define PREF_PATH					@"/var/mobile/Library/Preferences/cc.tweak.doubletap.plist"
 
 #ifndef kCFCoreFoundationVersionNumber_iOS_5_0
 #define kCFCoreFoundationVersionNumber_iOS_5_0		675.00
@@ -22,39 +22,39 @@
 #define kCFCoreFoundationVersionNumber_iOS_6_0		793.00
 #endif
 
-#define IS_IOS5										(kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_5_0 && !IS_IOS6)
-#define IS_IOS6										(kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_6_0)
-#define ObserverParameters							CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo
+#define IS_IOS5						(kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_5_0 && !IS_IOS6)
+#define IS_IOS6						(kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_6_0)
+#define ObserverParameters				CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo
 
 /* Notifications */
-#define kPreferenceChangedNotification				CFSTR("cc.tweak.doubletap.preferencechanged")
-#define kEnableZoomNotification						CFSTR("kEnableZoomNotification")
+#define kPreferenceChangedNotification			CFSTR("cc.tweak.doubletap.preferencechanged")
+#define kEnableZoomNotification				CFSTR("kEnableZoomNotification")
 
-#define kOrientationPortraitNotification			CFSTR("kOrientationPortraitNotification")
+#define kOrientationPortraitNotification		CFSTR("kOrientationPortraitNotification")
 #define kOrientationPortraitUpsideDownNotification	CFSTR("kOrientationPortraitUpsideDownNotification")
 #define kOrientationLandscapeLeftNotification		CFSTR("kOrientationLandscapeLeftNotification")
 #define kOrientationLandscapeRightNotification		CFSTR("kOrientationLandscapeRightNotification")
-#define kOrientationLockNotification				CFSTR("kOrientationLockNotification")
+#define kOrientationLockNotification			CFSTR("kOrientationLockNotification")
 
-#define kVolumeHUDShowNotification					CFSTR("kVolumeHUDShowNotification")
-#define kVolumeHUDHideNotification					CFSTR("kVolumeHUDHideNotification")
+#define kVolumeHUDShowNotification			CFSTR("kVolumeHUDShowNotification")
+#define kVolumeHUDHideNotification			CFSTR("kVolumeHUDHideNotification")
 
-#define SWIPE_RANGE									100.0
+#define SWIPE_RANGE					100.0
 
 // Variables
-static BOOL isSpringBoard							= NO;
+static BOOL isSpringBoard				= NO;
 
-static BOOL isLandscape								= NO;
-static BOOL shouldFlipCoordinate					= NO; // for upside down and landscape orientation
+static BOOL isLandscape					= NO;
+static BOOL shouldFlipCoordinate			= NO; // for upside down and landscape orientation
 
-static BOOL toggleOrientationLockEnabled			= YES;
-static int swipeAction								= 1; // none / brightness / volume
-static BOOL hideHUD									= NO;
+static BOOL toggleOrientationLockEnabled		= YES;
+static int swipeAction					= 1; // none / brightness / volume
+static BOOL hideHUD					= NO;
 
-static BOOL _swiping								= NO;
-static CGPoint _swipingCoordinates					= CGPointZero;
-static CGPoint _swipingInitialCoordinates			= CGPointZero;
-static CGFloat _swipingInitialValue					= 0.0;
+static BOOL _swiping					= NO;
+static CGPoint _swipingCoordinates			= CGPointZero;
+static CGPoint _swipingInitialCoordinates		= CGPointZero;
+static CGFloat _swipingInitialValue			= 0.0;
 
 // Function declaration
 static inline void toggleOrientationLock();
@@ -439,13 +439,13 @@ static __attribute__((constructor)) void init() {
 			loadZoomTouch();
 			
 			// triggered when SpringBoard finished launching
-			AddObserver(kEnableZoomNotification,					&_enableZoomHandler);
+			AddObserver(kEnableZoomNotification,			&_enableZoomHandler);
 			
 			// triggered when the interface orientation changes in SpringBoard or the frontmost app
-			AddObserver(kOrientationPortraitNotification,			&_orientationPortraitHandler);
+			AddObserver(kOrientationPortraitNotification,		&_orientationPortraitHandler);
 			AddObserver(kOrientationPortraitUpsideDownNotification, &_orientationPortraitUpsideDownHandler);
-			AddObserver(kOrientationLandscapeLeftNotification,		&_orientationLandscapeLeftHandler);
-			AddObserver(kOrientationLandscapeRightNotification,		&_orientationLandscapeRightHandler);
+			AddObserver(kOrientationLandscapeLeftNotification,	&_orientationLandscapeLeftHandler);
+			AddObserver(kOrientationLandscapeRightNotification,	&_orientationLandscapeRightHandler);
 		}
 		
 		AddObserver(kPreferenceChangedNotification, &reloadPref);
